@@ -1,9 +1,22 @@
+// getUser(1)
+//     .then(user => getRepositories(user.gitHubUsername))
+//     .then(repos => getCommits(repos[0]))
+//     .then(commits => console.log('Commits', commits))
+//     .catch(err => console.log('Error', err.message));    
+
 console.log('Before');
-getUser(1)
-    .then(user => getRepositories(user.gitHubUsername))
-    .then(repos => getCommits(repos[0]))
-    .then(commits => console.log('Commits', commits))
-    .catch(err => console.log('Error', err.message));    
+async function displayCommits() {
+    try {
+        const user = await getUser(1);
+        const repos = await getRepositories(user.gitHubUsername);
+        const commit = await getCommits(repos[0]);
+        console.log(commit);
+    }
+    catch (err) {
+        console.log('Error', err.message);
+    }
+}
+displayCommits()
 console.log('After');
 
 function getUser(id) {
